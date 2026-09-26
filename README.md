@@ -1,4 +1,14 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Suchitra - AI & Secure Systems
+
+Interactive portfolio for research, intelligent systems, cybersecurity, post-quantum cryptography, cloud technologies, and software development.
+
+## Live Portfolio
+
+[Open the published portfolio](https://portfolio-bice-pi-71.vercel.app)
+
+## Project
+
+This is a [Next.js](https://nextjs.org) project using the App Router, TypeScript, and a data-driven interactive lab interface.
 
 ## Getting Started
 
