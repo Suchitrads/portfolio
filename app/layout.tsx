@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Secure Intelligence Lab",
+  title: "Suchitra — AI & Secure Systems",
   description:
-    "A researcher and engineer building intelligent, secure, and scalable systems.",
+    "Suchitra is a researcher and engineer exploring AI, cybersecurity, post-quantum cryptography, cloud technologies, and secure systems.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -23,6 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body>{children}</body>
     </html>
