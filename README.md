@@ -4,7 +4,7 @@ Interactive portfolio for research, intelligent systems, cybersecurity, post-qua
 
 ## Live Portfolio
 
-[Open the published portfolio](https://portfolio-bice-pi-71.vercel.app)
+[Open the published portfolio](https://suchitra-tech-portfolio.vercel.app)
 
 ## Project
 
