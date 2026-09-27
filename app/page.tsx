@@ -155,11 +155,6 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeView, setActiveView] = useState<PortfolioView>("profile");
   const [journeyTab, setJourneyTab] = useState<JourneyTab>("overview");
-  const [hoveredJourneyId, setHoveredJourneyId] = useState<JourneyId | null>(null);
-  const hoveredJourneyIndex = hoveredJourneyId
-    ? journeyEntries.findIndex((entry) => entry.id === hoveredJourneyId)
-    : -1;
-  const hoveredJourneySide = hoveredJourneyIndex % 2 === 0 ? "left" : "right";
 
   const openDomain = (id: DomainId) => {
     setSelectedDomainId(id);
@@ -167,6 +162,7 @@ export default function Home() {
   };
 
   const closeDialog = () => setDialog(null);
+  const backToProjects = () => setDialog({ type: "projects" });
   const closeMenu = () => setMenuOpen(false);
 
   const openView = (view: PortfolioView) => {
@@ -362,10 +358,10 @@ export default function Home() {
     if (dialog.type === "project") {
       const project = projectById[dialog.id];
       return (
-        <div className="modal-backdrop" onClick={closeDialog}>
+        <div className="modal-backdrop" onClick={backToProjects}>
           <div className="modal-card wide" onClick={(event) => event.stopPropagation()}>
-            <button type="button" className="close-button" onClick={closeDialog} aria-label="Close dialog">
-              ×
+            <button type="button" className="close-button" onClick={backToProjects} aria-label="Back to projects">
+              ←
             </button>
             <div className="modal-kicker">PROJECT {project.number}</div>
             <h3>{project.name}</h3>
@@ -570,7 +566,6 @@ export default function Home() {
             <div
               className="journey-layout"
               aria-label="Professional journey timeline"
-              onMouseLeave={() => setHoveredJourneyId(null)}
             >
               <div className="journey-timeline" aria-label="Journey timeline list">
                 {journeyEntries.map((entry, index) => {
@@ -580,15 +575,11 @@ export default function Home() {
                     <button
                       key={entry.id}
                       type="button"
-                      className={`journey-node ${side} ${entry.current ? "is-current" : ""} ${hoveredJourneyId === entry.id ? "is-hovered" : ""}`}
+                      className={`journey-node ${side} ${entry.current ? "is-current" : ""}`}
                       style={{ animationDelay: `${index * 160}ms` }}
-                      onMouseEnter={() => {
-                        setHoveredJourneyId(entry.id);
-                        setJourneyTab(entry.id === "research-assistant" ? "overview" : "overview");
-                      }}
-                      onFocus={() => {
-                        setHoveredJourneyId(entry.id);
-                        setJourneyTab(entry.id === "research-assistant" ? "overview" : "overview");
+                      onClick={() => {
+                        setJourneyTab("overview");
+                        setDialog({ type: "journey", id: entry.id });
                       }}
                       aria-label={`${entry.title} details`}
                     >
@@ -602,65 +593,6 @@ export default function Home() {
                 })}
               </div>
 
-              <aside
-                className={`journey-detail-panel ${hoveredJourneyId ? "is-visible" : ""} ${hoveredJourneySide}`}
-                style={hoveredJourneyIndex >= 0 ? { top: `${10 + hoveredJourneyIndex * 198}px` } : undefined}
-                aria-live="polite"
-              >
-                {(() => {
-                  const entry = journeyEntries.find((item) => item.id === hoveredJourneyId) ?? journeyEntries[0];
-                  const tabConfig = journeyResearchAreas[journeyTab];
-
-                  return (
-                    <>
-                      <div className="journey-detail-meta">
-                        <span className="journey-detail-type">{entry.type.toUpperCase()}</span>
-                        <span className="journey-detail-date">{entry.start} — {entry.end}</span>
-                      </div>
-                      <h2>{entry.title}</h2>
-                      <p className="journey-detail-subtitle">{entry.institution}</p>
-                      <p className="journey-detail-copy">{entry.description}</p>
-
-                      {entry.id === "research-assistant" ? (
-                        <>
-                          <div className="journey-mini-tabs">
-                            {journeyTabOptions.map((tab) => (
-                              <button
-                                key={tab.id}
-                                type="button"
-                                className={`journey-mini-tab ${journeyTab === tab.id ? "active" : ""}`}
-                                onMouseEnter={() => setJourneyTab(tab.id)}
-                                onFocus={() => setJourneyTab(tab.id)}
-                                onClick={() => setJourneyTab(tab.id)}
-                              >
-                                {tab.label}
-                              </button>
-                            ))}
-                          </div>
-                          <div className="journey-detail-block">
-                            <span className="journey-detail-label">{tabConfig.headline}</span>
-                            <p>{tabConfig.detail}</p>
-                            <ul>
-                              {tabConfig.items.map((item) => (
-                                <li key={item}>{item}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        </>
-                      ) : (
-                        <div className="journey-detail-block">
-                          <span className="journey-detail-label">FOCUS AREAS</span>
-                          <div className="journey-focus-list">
-                            {(entry.technologies ?? entry.focus).map((item) => (
-                              <span key={item}>{item}</span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  );
-                })()}
-              </aside>
             </div>
           </section>
         )}
@@ -672,7 +604,7 @@ export default function Home() {
               <h1 id="projects-title">Projects</h1>
             </div>
             <div className="projects-workstation">
-              <button className="project-laptop" type="button" onClick={() => setDialog({ type: "projects" })} aria-label="Open Projects workstation">
+              <button className="project-laptop" type="button" onMouseEnter={() => setDialog({ type: "projects" })} onClick={() => setDialog({ type: "projects" })} aria-label="Open Projects workstation">
                 <span className="laptop-screen">
                   <span className="laptop-screen-line">PROJECTS</span>
                   <span className="laptop-cursor" aria-hidden="true">_</span>
