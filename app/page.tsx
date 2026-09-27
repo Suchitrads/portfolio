@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type ReactNode } from "react";
+import { useState, type MouseEvent as ReactMouseEvent, type ReactNode } from "react";
 import {
   journeyEntries,
   journeyResearchAreas,
@@ -20,8 +20,17 @@ const contactLinks = {
   github: "https://github.com/Suchitrads",
   linkedin: "https://www.linkedin.com/in/dssuchitra",
 };
-const emailHref = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(contactLinks.email)}&su=Portfolio%20Contact&body=Hi%20Suchitra%2C%0A%0A`;
+const emailHref = `mailto:${contactLinks.email}`;
 const phoneHref = `https://wa.me/${contactLinks.phone.replace(/\D/g, "")}`;
+const dialHref = `tel:${contactLinks.phone}`;
+
+function handlePhoneLinkClick(event: ReactMouseEvent<HTMLAnchorElement>) {
+  const isPhone = /iPhone|iPod|Android.*Mobile|Windows Phone|IEMobile|BlackBerry/i.test(navigator.userAgent);
+  if (!isPhone) return;
+
+  event.preventDefault();
+  window.location.href = dialHref;
+}
 
 type DomainId = "cloud" | "ai" | "development" | "security" | "pqc" | "blockchain" | "research";
 type PortfolioView = "profile" | "journey" | "projects" | "milestones";
@@ -288,8 +297,8 @@ export default function Home() {
               Interested in research, AI, cybersecurity, cryptography, cloud technologies, or building secure systems?
             </p>
             <div className="contact-list">
-              <a href={emailHref} target="_blank" rel="noopener noreferrer" title={`Email ${contactLinks.email}`}><span aria-hidden="true">✉︎</span> Email</a>
-              <a href={phoneHref} target="_blank" rel="noopener noreferrer" title={`Message or call ${contactLinks.phone} on WhatsApp`}><span aria-hidden="true">☎︎</span> Phone</a>
+              <a href={emailHref} title={`Email ${contactLinks.email}`}><span aria-hidden="true">✉︎</span> Email</a>
+              <a href={phoneHref} onClick={handlePhoneLinkClick} target="_blank" rel="noopener noreferrer" title={`Call ${contactLinks.phone} on phone or open WhatsApp on desktop`}><span aria-hidden="true">☎︎</span> Phone</a>
               <a href={contactLinks.linkedin} target="_blank" rel="noopener noreferrer"><span aria-hidden="true">in</span> LinkedIn</a>
               <a href={contactLinks.github} target="_blank" rel="noopener noreferrer"><span aria-hidden="true">GH</span> GitHub</a>
             </div>
@@ -697,8 +706,8 @@ export default function Home() {
           <div className="footer-bottom">
             <span>© 2026 Suchitra</span>
             <div className="footer-links" aria-label="Contact links">
-              <a href={emailHref} target="_blank" rel="noopener noreferrer" aria-label={`Email ${contactLinks.email}`} title={`Email ${contactLinks.email}`}>✉︎</a>
-              <a href={phoneHref} target="_blank" rel="noopener noreferrer" aria-label={`Message or call ${contactLinks.phone} on WhatsApp`} title={`WhatsApp ${contactLinks.phone}`}>☎︎</a>
+              <a href={emailHref} aria-label={`Email ${contactLinks.email}`} title={`Email ${contactLinks.email}`}>✉︎</a>
+              <a href={phoneHref} onClick={handlePhoneLinkClick} target="_blank" rel="noopener noreferrer" aria-label={`Call ${contactLinks.phone} on phone or open WhatsApp on desktop`} title={`Call or WhatsApp ${contactLinks.phone}`}>☎︎</a>
               <a href={contactLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn profile" title="LinkedIn">in</a>
               <a href={contactLinks.github} target="_blank" rel="noopener noreferrer" aria-label="Open GitHub profile" title="GitHub">GH</a>
             </div>
