@@ -311,11 +311,11 @@ export default function Home() {
               <span aria-hidden="true">←</span> BACK TO PORTFOLIO
             </button>
             <span className="resume-file-label">SUCHITRA · RESUME</span>
-            <a className="resume-download" href="/Resume.pdf" download="Suchitra-Resume.pdf">
+            <a className="resume-download" href="/Suchitra_resume.pdf" download="Suchitra-Resume.pdf">
               DOWNLOAD RESUME <span aria-hidden="true">↓</span>
             </a>
           </header>
-          <iframe className="resume-document" src="/Resume.pdf#view=FitH" title="Suchitra resume PDF" />
+          <iframe className="resume-document" src="/Suchitra_resume.pdf#view=FitH" title="Suchitra resume PDF" />
         </section>
       );
     }
