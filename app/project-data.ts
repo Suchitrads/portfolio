@@ -53,4 +53,16 @@ export const projects: Project[] = [
     measurements: [],
     publishedLink: "https://real-time-chat-mauve.vercel.app/",
   },
+  {
+      id: "echo-personal-assistant",
+      number: "04",
+      name: "ECHO — PERSONAL VOICE ASSISTANT",
+      subtitle: "AI-Powered Voice-Based Personal Assistant",
+      description: "An interactive AI-powered personal voice assistant designed to understand spoken input, process user requests, and respond conversationally. Echo integrates voice interaction with Google's Gemini API to deliver a natural, hands-free assistant experience through a web-based interface.",
+      skills: ["JavaScript", "React", "Next.js", "HTML", "CSS", "Web Speech API", "Google Gemini API", "REST APIs", "Environment Variables", "Voice Processing"],
+      categories: ["ARTIFICIAL INTELLIGENCE", "VOICE ASSISTANT"],
+      concepts: ["Speech Recognition", "Voice Input", "AI-Powered Conversations", "Gemini API Integration", "Natural Language Understanding", "Text-to-Speech Responses", "Hands-Free Interaction", "Asynchronous API Requests", "Environment Configuration", "Interactive User Interface"],
+      measurements: [],
+      publishedLink: "https://echo-personal-assistant.onrender.com/",
+  },
 ];
